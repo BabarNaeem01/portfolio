@@ -1,88 +1,56 @@
 export default function Home() {
   return (
     <div className="min-h-screen bg-white">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-sm border-b border-gray-100 z-50">
-        <div className="max-w-6xl mx-auto px-6 py-4">
-          <div className="flex justify-between items-center">
-            <div className="text-xl font-bold text-gray-900">Babar Naeem</div>
-            <div className="hidden md:flex space-x-8">
-              <a href="#hero" className="text-gray-600 hover:text-gray-900 transition-colors">Home</a>
-              <a href="#about" className="text-gray-600 hover:text-gray-900 transition-colors">About</a>
-              <a href="#projects" className="text-gray-600 hover:text-gray-900 transition-colors">Projects</a>
-              <a href="#contact" className="text-gray-600 hover:text-gray-900 transition-colors">Contact</a>
-            </div>
-          </div>
+      {/* Morse Code Header */}
+      <div className="fixed top-0 w-full bg-white z-50 py-4">
+        <div className="text-center">
+          <div className="text-xl font-bold text-black" style={{ fontFamily: 'Minecraft, monospace' }}>•−••• •− −••• •− •−• / −• •− • •−−</div>
         </div>
-      </nav>
+      </div>
 
       {/* Hero Section */}
       <section id="hero" className="min-h-screen flex items-center justify-center px-6 pt-20">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-6xl md:text-7xl font-bold text-gray-900 mb-6 tracking-tight">
-            Hello, I'm <span className="text-blue-600">Babar</span>
+          <h1 className="text-3xl md:text-4xl font-bold text-black mb-32 tracking-wide" style={{ fontFamily: 'Daydream, monospace' }}>
+            Hi, I'm Babar
           </h1>
-          <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            A Computer Science student passionate about AI, web development, and creating meaningful digital experiences.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="#projects"
-              className="bg-blue-600 text-white px-8 py-4 rounded-lg font-medium hover:bg-blue-700 transition-colors"
-            >
-              View My Work
-            </a>
-            <a
-              href="#contact"
-              className="border border-gray-300 text-gray-700 px-8 py-4 rounded-lg font-medium hover:bg-gray-50 transition-colors"
-            >
-              Get In Touch
-            </a>
-          </div>
         </div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 px-6 bg-gray-50">
+      <section id="about" className="py-20 px-6 bg-white">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center">About Me</h2>
+          <h2 className="text-4xl font-bold text-black mb-12 text-center" style={{ fontFamily: 'Minecraft, monospace' }}>About Me</h2>
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                I'm a Computer Science student with a passion for technology and innovation. 
-                I love exploring the intersection of AI and web development, creating solutions 
-                that make a difference.
-              </p>
-              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                When I'm not coding, you can find me learning about new technologies, 
-                contributing to open source projects, or working on personal projects 
-                that challenge me to grow as a developer.
+              <p className="text-lg text-black mb-8 leading-relaxed" style={{ fontFamily: 'Minecraft, monospace' }}>
+                I merge AI with intuition, quietly exploring new ideas at the intersection of technology and art.
               </p>
               <div className="flex flex-wrap gap-3">
-                <span className="bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium">JavaScript</span>
-                <span className="bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium">Python</span>
-                <span className="bg-purple-100 text-purple-800 px-4 py-2 rounded-full text-sm font-medium">React</span>
-                <span className="bg-orange-100 text-orange-800 px-4 py-2 rounded-full text-sm font-medium">Next.js</span>
-                <span className="bg-pink-100 text-pink-800 px-4 py-2 rounded-full text-sm font-medium">AI/ML</span>
+                <span className="bg-black text-white px-4 py-2 rounded-full text-sm font-medium" style={{ fontFamily: 'Minecraft, monospace' }}>JavaScript</span>
+                <span className="bg-black text-white px-4 py-2 rounded-full text-sm font-medium" style={{ fontFamily: 'Minecraft, monospace' }}>Python</span>
+                <span className="bg-black text-white px-4 py-2 rounded-full text-sm font-medium" style={{ fontFamily: 'Minecraft, monospace' }}>React</span>
+                <span className="bg-black text-white px-4 py-2 rounded-full text-sm font-medium" style={{ fontFamily: 'Minecraft, monospace' }}>Next.js</span>
+                <span className="bg-black text-white px-4 py-2 rounded-full text-sm font-medium" style={{ fontFamily: 'Minecraft, monospace' }}>AI/ML</span>
               </div>
             </div>
-            <div className="bg-white p-8 rounded-2xl shadow-sm">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">What I Do</h3>
-              <ul className="space-y-3 text-gray-600">
+            <div className="bg-white p-8 rounded-2xl border border-black">
+              <h3 className="text-xl font-semibold text-black mb-4" style={{ fontFamily: 'Minecraft, monospace' }}>What I Do</h3>
+              <ul className="space-y-3 text-black" style={{ fontFamily: 'Minecraft, monospace' }}>
                 <li className="flex items-center">
-                  <div className="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
+                  <div className="w-2 h-2 bg-black rounded-full mr-3"></div>
                   Full-stack web development
                 </li>
                 <li className="flex items-center">
-                  <div className="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
+                  <div className="w-2 h-2 bg-black rounded-full mr-3"></div>
                   AI and machine learning projects
                 </li>
                 <li className="flex items-center">
-                  <div className="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
+                  <div className="w-2 h-2 bg-black rounded-full mr-3"></div>
                   User experience design
                 </li>
                 <li className="flex items-center">
-                  <div className="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
+                  <div className="w-2 h-2 bg-black rounded-full mr-3"></div>
                   Open source contributions
                 </li>
               </ul>
@@ -216,21 +184,21 @@ export default function Home() {
           </div>
 
           <div className="flex justify-center space-x-6">
-            <a
-              href="mailto:babarnaeem0001@gmail.com"
+          <a
+            href="mailto:babarnaeem0001@gmail.com"
               className="bg-blue-600 text-white px-8 py-4 rounded-lg font-medium hover:bg-blue-700 transition-colors"
-            >
-              Contact Me
-            </a>
-            <a
-              href="https://github.com/BabarNaeem01"
-              target="_blank"
+          >
+            Contact Me
+          </a>
+          <a
+            href="https://github.com/BabarNaeem01"
+            target="_blank"
               className="border border-gray-300 text-gray-700 px-8 py-4 rounded-lg font-medium hover:bg-gray-50 transition-colors"
-            >
+          >
               View GitHub
-            </a>
-          </div>
+          </a>
         </div>
+      </div>
       </section>
 
       {/* Footer */}
