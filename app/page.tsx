@@ -107,8 +107,8 @@ export default function Home() {
                       fontWeight: '100',
                       transition: 'font-size 0.3s ease'
                     }}
-                    onMouseEnter={(e) => e.target.style.fontSize = '32px'}
-                    onMouseLeave={(e) => e.target.style.fontSize = '28px'}
+                    onMouseEnter={(e) => (e.target as HTMLElement).style.fontSize = '32px'}
+                    onMouseLeave={(e) => (e.target as HTMLElement).style.fontSize = '28px'}
                   >×</div>
                 </div>
               )}
