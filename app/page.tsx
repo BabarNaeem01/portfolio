@@ -1,10 +1,13 @@
 export default function Home() {
   return (
     <div className="min-h-screen bg-white relative overflow-hidden">
-      {/* Morse Code Header */}
-      <div className="fixed top-0 w-full bg-white z-50 py-4">
-        <div className="text-center">
-          <div className="text-xl font-bold text-black" style={{ fontFamily: 'Minecraft, monospace' }}>•−••• •− −••• •− •−• / −• •− • •−−</div>
+      {/* Name Header */}
+      <div className="fixed top-4 left-6 bg-white z-50 py-2 px-4">
+        <div className="text-left">
+          <a href="/" className="text-sm text-black leading-none tracking-wider hover:text-gray-600 transition-colors" style={{ fontFamily: 'Philosopher-Regular, sans-serif' }}>
+            <div>BABAR</div>
+            <div>NAEEM</div>
+          </a>
         </div>
       </div>
 
