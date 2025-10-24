@@ -1,6 +1,6 @@
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white relative overflow-hidden">
       {/* Morse Code Header */}
       <div className="fixed top-0 w-full bg-white z-50 py-4">
         <div className="text-center">
@@ -10,10 +10,10 @@ export default function Home() {
 
       {/* Hero Section */}
       <section id="hero" className="min-h-screen flex items-center justify-center px-6 pt-20">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-3xl md:text-4xl font-bold text-black mb-32 tracking-wide" style={{ fontFamily: 'Daydream, monospace' }}>
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <h1 className="text-2xl md:text-3xl font-bold text-black mb-32 tracking-wide" style={{ fontFamily: 'Daydream, monospace' }}>
             Hi, I'm Babar
-          </h1>
+        </h1>
         </div>
       </section>
 
