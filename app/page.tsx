@@ -1,13 +1,50 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+
 export default function Home() {
+  const [currentTime, setCurrentTime] = useState('');
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      const islamabadTime = new Date(now.toLocaleString("en-US", {timeZone: "Asia/Karachi"}));
+      const timeString = islamabadTime.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+      });
+      setCurrentTime(timeString);
+    };
+
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="min-h-screen bg-white relative overflow-hidden">
       {/* Name Header */}
       <div className="fixed top-4 left-6 bg-white z-50 py-2 px-4">
-        <div className="text-left">
-          <a href="/" className="text-sm text-black leading-none tracking-wider hover:text-gray-600 transition-colors" style={{ fontFamily: 'Philosopher-Regular, sans-serif' }}>
-            <div>BABAR</div>
-            <div>NAEEM</div>
-          </a>
+        <div className="flex items-center gap-96">
+          <div className="text-left">
+            <a href="/" className="text-sm text-black leading-none tracking-wider hover:text-gray-600 transition-colors" style={{ fontFamily: 'Philosopher-Regular, sans-serif' }}>
+              <div>BABAR</div>
+              <div>NAEEM</div>
+            </a>
+          </div>
+          <div className="text-sm text-gray-500 font-normal">
+            33.5645°N, 73.3535°E
+          </div>
+          <div className="text-sm text-gray-500 font-normal">
+            {currentTime}
+          </div>
+          <div className="flex flex-col gap-1 cursor-pointer">
+            <div className="w-6 h-0.5 bg-black"></div>
+            <div className="w-6 h-0.5 bg-black"></div>
+          </div>
         </div>
       </div>
 
