@@ -4,6 +4,9 @@ import { useState, useEffect } from 'react';
 
 export default function Home() {
   const [currentTime, setCurrentTime] = useState('');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState('');
+  const [isAnimating, setIsAnimating] = useState(false);
 
   useEffect(() => {
     const updateTime = () => {
@@ -35,15 +38,55 @@ export default function Home() {
               <div>NAEEM</div>
             </a>
           </div>
-          <div className="text-sm text-gray-500 font-normal">
+          <div className="text-xs text-gray-500 font-normal whitespace-nowrap">
             33.5645°N, 73.3535°E
           </div>
-          <div className="text-sm text-gray-500 font-normal">
+          <div className="text-xs text-gray-500 font-normal whitespace-nowrap">
             {currentTime}
           </div>
-          <div className="flex flex-col gap-1 cursor-pointer">
-            <div className="w-6 h-0.5 bg-black"></div>
-            <div className="w-6 h-0.5 bg-black"></div>
+          <div className="relative">
+            <div 
+              className="flex flex-col gap-1 cursor-pointer transition-all duration-300 hover:gap-2"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              <div className={`w-6 h-0.5 bg-black transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-1' : ''}`}></div>
+              <div className={`w-6 h-0.5 bg-black transition-all duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-1' : ''}`}></div>
+            </div>
+            
+            {isMenuOpen && (
+              <div className="fixed inset-0 bg-white z-50 flex items-center justify-center animate-fadeIn">
+                <div className="text-center animate-slideUp">
+                  <div className="space-y-8">
+                    <a 
+                      href="#hero" 
+                      className="block text-6xl font-bold text-black hover:text-gray-600 transition-colors"
+                      onClick={() => {
+                        setIsMenuOpen(false);
+                        setSelectedOption('01 Home');
+                      }}
+                    >
+                      01 Home
+                    </a>
+                    <a 
+                      href="#about" 
+                      className="block text-6xl font-bold text-black hover:text-gray-600 transition-colors"
+                      onClick={() => {
+                        setIsMenuOpen(false);
+                        setSelectedOption('02 About Me');
+                      }}
+                    >
+                      02 About Me
+                    </a>
+                  </div>
+                  <div 
+                    className="absolute top-8 right-8 text-2xl cursor-pointer"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    ×
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
