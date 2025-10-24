@@ -6,7 +6,8 @@ export default function Home() {
   const [currentTime, setCurrentTime] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  const [showCursorCircle, setShowCursorCircle] = useState(false);
 
   useEffect(() => {
     const updateTime = () => {
@@ -27,67 +28,155 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.classList.add('menu-open');
+      // Animate first line immediately
+      setTimeout(() => {
+        const line1 = document.getElementById('line1');
+        if (line1) line1.classList.add('animate');
+      }, 100);
+      
+      // Animate second line before first line finishes
+      setTimeout(() => {
+        const line2 = document.getElementById('line2');
+        if (line2) line2.classList.add('animate');
+      }, 400);
+    } else {
+      document.body.classList.remove('menu-open');
+      // Reset lines when menu closes
+      const line1 = document.getElementById('line1');
+      const line2 = document.getElementById('line2');
+      if (line1) line1.classList.remove('animate');
+      if (line2) line2.classList.remove('animate');
+    }
+    
+    return () => {
+      document.body.classList.remove('menu-open');
+    };
+  }, [isMenuOpen]);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    setCursorPosition({ x: e.clientX, y: e.clientY });
+  };
+
+  const handleMouseEnter = (e: React.MouseEvent) => {
+    setShowCursorCircle(true);
+    setCursorPosition({ x: e.clientX, y: e.clientY });
+  };
+
+  const handleMouseLeave = () => {
+    setShowCursorCircle(false);
+  };
+
   return (
     <div className="min-h-screen bg-white relative overflow-hidden">
       {/* Name Header */}
-      <div className="fixed top-4 left-6 bg-white z-50 py-2 px-4">
+      <div className="fixed top-0 left-0 w-full bg-white z-50 py-4 px-6 fixed-header">
         <div className="flex items-center gap-96">
           <div className="text-left">
-            <a href="/" className="text-sm text-black leading-none tracking-wider hover:text-gray-600 transition-colors" style={{ fontFamily: 'Philosopher-Regular, sans-serif' }}>
+            <a href="/" className="text-sm text-black leading-none tracking-wider hover:text-gray-800 transition-colors" style={{ fontFamily: 'Philosopher-Regular, sans-serif' }}>
               <div>BABAR</div>
               <div>NAEEM</div>
             </a>
           </div>
-          <div className="text-xs text-gray-500 font-normal whitespace-nowrap">
+          <div className="text-xs text-gray-800 font-normal whitespace-nowrap">
             33.5645°N, 73.3535°E
           </div>
-          <div className="text-xs text-gray-500 font-normal whitespace-nowrap">
+          <div className="text-xs text-gray-800 font-normal whitespace-nowrap">
             {currentTime}
           </div>
-          <div className="relative">
+          <div className="relative z-50">
             <div 
               className="flex flex-col gap-1 cursor-pointer transition-all duration-300 hover:gap-2"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
+              style={{ alignItems: 'flex-start' }}
             >
-              <div className={`w-6 h-0.5 bg-black transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-1' : ''}`}></div>
-              <div className={`w-6 h-0.5 bg-black transition-all duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-1' : ''}`}></div>
-            </div>
-            
-            {isMenuOpen && (
-              <div className="fixed inset-0 bg-white z-50 flex items-center justify-center animate-fadeIn">
-                <div className="text-center animate-slideUp">
-                  <div className="space-y-8">
-                    <a 
-                      href="#hero" 
-                      className="block text-6xl font-bold text-black hover:text-gray-600 transition-colors"
-                      onClick={() => {
-                        setIsMenuOpen(false);
-                        setSelectedOption('01 Home');
-                      }}
-                    >
-                      01 Home
-                    </a>
-                    <a 
-                      href="#about" 
-                      className="block text-6xl font-bold text-black hover:text-gray-600 transition-colors"
-                      onClick={() => {
-                        setIsMenuOpen(false);
-                        setSelectedOption('02 About Me');
-                      }}
-                    >
-                      02 About Me
-                    </a>
-                  </div>
+              {!isMenuOpen ? (
+                <>
+                  <div style={{width: '16px', height: '1.5px', backgroundColor: '#000000', flexShrink: 0}}></div>
+                  <div style={{width: '16px', height: '1.5px', backgroundColor: '#000000', flexShrink: 0}}></div>
+                </>
+              ) : (
+                <div className="w-4 h-4 flex items-center justify-center">
                   <div 
-                    className="absolute top-8 right-8 text-2xl cursor-pointer"
-                    onClick={() => setIsMenuOpen(false)}
+                    className="text-black transition-all duration-300" 
+                    style={{
+                      fontSize: '28px', 
+                      lineHeight: '1',
+                      fontWeight: '100',
+                      transition: 'font-size 0.3s ease'
+                    }}
+                    onMouseEnter={(e) => e.target.style.fontSize = '32px'}
+                    onMouseLeave={(e) => e.target.style.fontSize = '28px'}
+                  >×</div>
+                </div>
+              )}
+            </div>
+          </div>
+          
+          {isMenuOpen && (
+            <div className="fixed inset-0 bg-white z-40 animate-fadeIn">
+              <div className="absolute top-16 left-16 animate-fadeIn">
+                <div className="space-y-4">
+                  <a 
+                    href="#hero" 
+                    className="block hover:text-gray-800 transition-colors"
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      setSelectedOption('01 Home');
+                    }}
                   >
-                    ×
-                  </div>
+                    <div className="text-3xl text-gray-800 font-bold mb-2" style={{ fontFamily: 'Arial, sans-serif' }}>01</div>
+                    <div 
+                      className="text-9xl font-medium text-black mb-8 ml-12 -mt-12 hover:text-gray-800 transition-colors duration-300 inline-block"
+                      onMouseMove={handleMouseMove}
+                      onMouseEnter={handleMouseEnter}
+                      onMouseLeave={handleMouseLeave}
+                      style={{ width: 'fit-content' }}
+                    >Home</div>
+                    <div className="h-1 bg-gray-800 mt-4 line-stretch" id="line1"></div>
+                  </a>
+                  <a 
+                    href="#about" 
+                    className="block hover:text-gray-800 transition-colors"
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      setSelectedOption('02 About Me');
+                    }}
+                  >
+                    <div className="text-3xl text-gray-800 font-bold mb-2" style={{ fontFamily: 'Arial, sans-serif' }}>02</div>
+                    <div 
+                      className="text-9xl font-medium text-black mb-8 ml-12 -mt-12 hover:text-gray-800 transition-colors duration-300 inline-block"
+                      onMouseMove={handleMouseMove}
+                      onMouseEnter={handleMouseEnter}
+                      onMouseLeave={handleMouseLeave}
+                      style={{ width: 'fit-content' }}
+                    >About Me</div>
+                    <div className="h-1 bg-gray-800 mt-4 line-stretch" id="line2"></div>
+                  </a>
                 </div>
               </div>
-            )}
-          </div>
+            </div>
+          )}
+
+          {/* Cursor Circle */}
+          {showCursorCircle && (
+            <div 
+              className="fixed pointer-events-none z-50"
+              style={{
+                left: cursorPosition.x,
+                top: cursorPosition.y,
+                width: '80px',
+                height: '80px',
+                transform: 'translate(0, 0)',
+                transition: 'none',
+                background: 'rgba(200, 200, 200, 0.8)',
+                borderRadius: '50%',
+                mixBlendMode: 'screen'
+              }}
+            />
+          )}
         </div>
       </div>
 

@@ -73,3 +73,67 @@ body {
   color: #000000 !important;
 }
 
+/* Line stretch animation */
+@keyframes stretchLine {
+  from {
+    width: 0;
+    opacity: 1;
+  }
+  to {
+    width: calc(100vw - 200px);
+    opacity: 1;
+  }
+}
+
+@keyframes stretchLineDelayed {
+  0% {
+    width: 0;
+    opacity: 0;
+  }
+  1% {
+    opacity: 1;
+  }
+  100% {
+    width: calc(100vw - 200px);
+    opacity: 1;
+  }
+}
+
+@keyframes stretchLineDelayed {
+  0% {
+    width: 0;
+    opacity: 0;
+  }
+  1% {
+    opacity: 1;
+  }
+  100% {
+    width: calc(100vw - 200px);
+    opacity: 1;
+  }
+}
+
+.line-stretch {
+  width: 0;
+  transition: width 0.4s ease-out;
+}
+
+.line-stretch.animate {
+  width: calc(100vw - 200px);
+}
+
+/* Custom cursor styling */
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: black;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+
