@@ -31,6 +31,7 @@ export default function Home() {
   useEffect(() => {
     if (isMenuOpen) {
       document.body.classList.add('menu-open');
+      document.body.style.overflow = 'hidden';
       // Animate first line immediately
       setTimeout(() => {
         const line1 = document.getElementById('line1');
@@ -44,6 +45,7 @@ export default function Home() {
       }, 400);
     } else {
       document.body.classList.remove('menu-open');
+      document.body.style.overflow = 'auto';
       // Reset lines when menu closes
       const line1 = document.getElementById('line1');
       const line2 = document.getElementById('line2');
@@ -53,6 +55,7 @@ export default function Home() {
     
     return () => {
       document.body.classList.remove('menu-open');
+      document.body.style.overflow = 'auto';
     };
   }, [isMenuOpen]);
 
