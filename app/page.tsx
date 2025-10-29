@@ -74,8 +74,8 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white relative overflow-hidden">
-      {/* Name Header */}
-      <div className="fixed top-0 left-0 w-full bg-white z-50 py-4 px-6 fixed-header">
+      {/* Menu Bar */}
+      <div className="w-full bg-white py-4 px-6">
         <div className="flex items-center gap-96">
           <div className="text-left">
             <a href="/" className="text-sm text-black leading-none tracking-wider hover:text-gray-800 transition-colors" style={{ fontFamily: 'Philosopher-Regular, sans-serif' }}>
@@ -183,17 +183,42 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Scrolling Text */}
+      <div className="w-screen -mx-6 overflow-hidden h-48" style={{ paddingTop: '200px' }}>
+        <h1 className="text-9xl md:text-[12rem] font-semibold text-black tracking-wide whitespace-nowrap scroll-text" style={{ fontFamily: 'Arial, sans-serif', textTransform: 'lowercase' }}>
+          hi i'm babar • hi i'm babar • hi i'm babar • hi i'm babar • hi i'm babar • hi i'm babar • hi i'm babar • hi i'm babar • hi i'm babar • hi i'm babar • hi i'm babar • hi i'm babar • hi i'm babar • hi i'm babar • hi i'm babar • hi i'm babar • hi i'm babar • hi i'm babar • hi i'm babar • hi i'm babar
+        </h1>
+      </div>
+
       {/* Hero Section */}
       <section id="hero" className="min-h-screen flex items-center justify-center px-6 pt-20">
-        <div className="max-w-4xl mx-auto text-center relative z-10">
-          <h1 className="text-2xl md:text-3xl font-bold text-black mb-32 tracking-wide" style={{ fontFamily: 'Daydream, monospace' }}>
-            Hi, I'm Babar
-        </h1>
+        <div className="max-w-6xl mx-auto flex items-center justify-between">
+          <div className="flex-1"></div>
+          <div className="flex-1 flex justify-end">
+            <img 
+              src="/images/Cherubs_Cupids-56a0004f3df78cafda9f8cae.jpg" 
+              alt="Cherubs_Cupids-56a0004f3df78cafda9f8cae" 
+              className="w-full h-auto object-cover"
+              style={{ marginTop: '100px', position: 'absolute', top: '300px', right: '53%', width: '42%' }}
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+              }}
+            />
+            <img 
+              src="/images/2015.033.0001.jpg" 
+              alt="2015.033.0001" 
+              className="w-full h-auto object-cover"
+              style={{ marginTop: '100px', position: 'absolute', top: '300px', right: '2%', width: '50%' }}
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+              }}
+            />
+          </div>
         </div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 px-6 bg-white">
+      <section id="about" className="py-20 px-6 bg-white" style={{ paddingTop: '200px' }}>
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl font-bold text-black mb-12 text-center" style={{ fontFamily: 'Minecraft, monospace' }}>About Me</h2>
           <div className="grid md:grid-cols-2 gap-12 items-center">

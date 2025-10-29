@@ -137,3 +137,22 @@ body {
   z-index: 9999;
 }
 
+/* Scrolling text animation */
+@keyframes scrollRightToLeft {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.scroll-text {
+  animation: scrollRightToLeft 50s linear infinite;
+  display: inline-block;
+  width: 200%;
+  position: absolute;
+  left: 0;
+  top: 120px;
+}
+
