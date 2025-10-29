@@ -195,30 +195,57 @@ export default function Home() {
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="flex-1"></div>
           <div className="flex-1 flex justify-end">
-            <img 
-              src="/images/Cherubs_Cupids-56a0004f3df78cafda9f8cae.jpg" 
-              alt="Cherubs_Cupids-56a0004f3df78cafda9f8cae" 
-              className="w-full h-auto object-cover"
-              style={{ marginTop: '100px', position: 'absolute', top: '300px', right: '53%', width: '42%' }}
-              onError={(e) => {
-                e.currentTarget.style.display = 'none';
-              }}
-            />
-            <img 
-              src="/images/2015.033.0001.jpg" 
-              alt="2015.033.0001" 
-              className="w-full h-auto object-cover"
-              style={{ marginTop: '100px', position: 'absolute', top: '300px', right: '2%', width: '50%' }}
-              onError={(e) => {
-                e.currentTarget.style.display = 'none';
-              }}
-            />
+            <a 
+              href="https://www.youtube.com/watch?v=zTOccll2XGM" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              style={{ position: 'absolute', top: '300px', right: '53%', width: '42%', textDecoration: 'none', color: 'inherit' }}
+            >
+              <img 
+                src="/images/Cherubs_Cupids-56a0004f3df78cafda9f8cae.jpg" 
+                alt="Cherubs_Cupids-56a0004f3df78cafda9f8cae" 
+                className="w-full h-auto object-cover"
+                style={{ marginTop: '100px' }}
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
+              <div style={{ marginTop: '20px', textAlign: 'left', fontSize: '14px', lineHeight: '1.4', color: '#666' }}>
+                <div>
+                  <strong>The Savers Paradox</strong>: <em>A Common Mindset That Can Ruin Your Life</em>
+                </div>
+              </div>
+            </a>
+            <a 
+              href="https://www.thelivingphilosophy.com/p/soren-kierkegaard" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              style={{ position: 'absolute', top: '300px', right: '2%', width: '50%', textDecoration: 'none', color: 'inherit' }}
+            >
+              <img 
+                src="/images/2015.033.0001.jpg" 
+                alt="2015.033.0001" 
+                className="w-full h-auto object-cover"
+                style={{ marginTop: '100px' }}
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
+              <div style={{ marginTop: '20px', textAlign: 'left', fontSize: '14px', lineHeight: '1.4', color: '#666' }}>
+                <div style={{ marginBottom: '8px' }}>
+                  <strong>Soren Kierkegaard</strong> — <em>The Father of Existentialism</em>:
+                </div>
+                <div>
+                  <em>A deep dive into the philosophy of the Christian father of Existentialism</em>
+                </div>
+              </div>
+            </a>
           </div>
         </div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 px-6 bg-white" style={{ paddingTop: '200px' }}>
+      <section id="about" className="py-20 px-6 bg-white" style={{ paddingTop: '600px' }}>
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl font-bold text-black mb-12 text-center" style={{ fontFamily: 'Minecraft, monospace' }}>About Me</h2>
           <div className="grid md:grid-cols-2 gap-12 items-center">
