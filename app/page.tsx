@@ -199,7 +199,7 @@ export default function Home() {
               href="https://www.youtube.com/watch?v=zTOccll2XGM" 
               target="_blank" 
               rel="noopener noreferrer"
-              style={{ position: 'absolute', top: '300px', right: '53%', width: '42%', textDecoration: 'none', color: 'inherit' }}
+              style={{ position: 'absolute', top: '300px', left: '3.5%', width: '42%', textDecoration: 'none', color: 'inherit' }}
             >
               <img 
                 src="/images/Cherubs_Cupids-56a0004f3df78cafda9f8cae.jpg" 
@@ -220,7 +220,7 @@ export default function Home() {
               href="https://www.thelivingphilosophy.com/p/soren-kierkegaard" 
               target="_blank" 
               rel="noopener noreferrer"
-              style={{ position: 'absolute', top: '300px', right: '2%', width: '50%', textDecoration: 'none', color: 'inherit' }}
+              style={{ position: 'absolute', top: '300px', left: '46.5%', width: '50%', textDecoration: 'none', color: 'inherit' }}
             >
               <img 
                 src="/images/2015.033.0001.jpg" 
