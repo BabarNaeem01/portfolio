@@ -8,6 +8,8 @@ export default function Home() {
   const [selectedOption, setSelectedOption] = useState('');
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [showCursorCircle, setShowCursorCircle] = useState(false);
+  const [imageCursorPosition, setImageCursorPosition] = useState({ x: 0, y: 0 });
+  const [showImageCursor, setShowImageCursor] = useState(false);
 
   useEffect(() => {
     const updateTime = () => {
@@ -70,6 +72,19 @@ export default function Home() {
 
   const handleMouseLeave = () => {
     setShowCursorCircle(false);
+  };
+
+  const handleImageMouseMove = (e: React.MouseEvent) => {
+    setImageCursorPosition({ x: e.clientX, y: e.clientY });
+  };
+
+  const handleImageMouseEnter = (e: React.MouseEvent) => {
+    setShowImageCursor(true);
+    setImageCursorPosition({ x: e.clientX, y: e.clientY });
+  };
+
+  const handleImageMouseLeave = () => {
+    setShowImageCursor(false);
   };
 
   return (
@@ -180,6 +195,56 @@ export default function Home() {
               }}
             />
           )}
+
+          {/* Image Cursor Circle with Arrow */}
+          {showImageCursor && (
+            <div 
+              className="fixed pointer-events-none z-50 flex flex-col items-center"
+              style={{
+                left: imageCursorPosition.x,
+                top: imageCursorPosition.y,
+                transform: 'translate(-50%, -50%)',
+                transition: 'none',
+              }}
+            >
+              <svg 
+                width="100" 
+                height="100" 
+                viewBox="0 0 100 100" 
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <defs>
+                  <mask id="arrowMask">
+                    <circle cx="50" cy="50" r="50" fill="white"/>
+                    <path 
+                      d="M28 72 L72 28 M72 28 L28 28 M72 28 L72 72" 
+                      stroke="black" 
+                      strokeWidth="9" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round"
+                      fill="none"
+                    />
+                  </mask>
+                </defs>
+                <circle 
+                  cx="50" 
+                  cy="50" 
+                  r="50" 
+                  fill="white" 
+                  mask="url(#arrowMask)"
+                />
+              </svg>
+              <div 
+                className="text-white text-xs font-semibold tracking-wider mt-2"
+                style={{ 
+                  fontFamily: 'Arial, sans-serif',
+                  textShadow: '0 0 4px rgba(0, 0, 0, 0.8)'
+                }}
+              >
+                SEE MORE
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -199,7 +264,10 @@ export default function Home() {
               href="https://www.youtube.com/watch?v=zTOccll2XGM" 
               target="_blank" 
               rel="noopener noreferrer"
-              style={{ position: 'absolute', top: '300px', left: '3.5%', width: '42%', textDecoration: 'none', color: 'inherit' }}
+              style={{ position: 'absolute', top: '300px', left: '2.75%', width: '42%', textDecoration: 'none', color: 'inherit', cursor: 'none' }}
+              onMouseMove={handleImageMouseMove}
+              onMouseEnter={handleImageMouseEnter}
+              onMouseLeave={handleImageMouseLeave}
             >
               <img 
                 src="/images/Cherubs_Cupids-56a0004f3df78cafda9f8cae.jpg" 
@@ -220,7 +288,10 @@ export default function Home() {
               href="https://www.thelivingphilosophy.com/p/soren-kierkegaard" 
               target="_blank" 
               rel="noopener noreferrer"
-              style={{ position: 'absolute', top: '300px', left: '46.5%', width: '50%', textDecoration: 'none', color: 'inherit' }}
+              style={{ position: 'absolute', top: '300px', left: '47.25%', width: '50%', textDecoration: 'none', color: 'inherit', cursor: 'none' }}
+              onMouseMove={handleImageMouseMove}
+              onMouseEnter={handleImageMouseEnter}
+              onMouseLeave={handleImageMouseLeave}
             >
               <img 
                 src="/images/2015.033.0001.jpg" 
