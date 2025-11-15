@@ -10,6 +10,8 @@ export default function Home() {
   const [showCursorCircle, setShowCursorCircle] = useState(false);
   const [imageCursorPosition, setImageCursorPosition] = useState({ x: 0, y: 0 });
   const [showImageCursor, setShowImageCursor] = useState(false);
+  const [menuCursorPosition, setMenuCursorPosition] = useState({ x: 0, y: 0 });
+  const [showMenuCursor, setShowMenuCursor] = useState(false);
 
   useEffect(() => {
     const updateTime = () => {
@@ -87,6 +89,19 @@ export default function Home() {
     setShowImageCursor(false);
   };
 
+  const handleMenuMouseMove = (e: React.MouseEvent) => {
+    setMenuCursorPosition({ x: e.clientX, y: e.clientY });
+  };
+
+  const handleMenuMouseEnter = (e: React.MouseEvent) => {
+    setShowMenuCursor(true);
+    setMenuCursorPosition({ x: e.clientX, y: e.clientY });
+  };
+
+  const handleMenuMouseLeave = () => {
+    setShowMenuCursor(false);
+  };
+
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
       {/* Menu Bar */}
@@ -148,9 +163,9 @@ export default function Home() {
                     <div className="text-3xl text-gray-300 font-bold mb-2" style={{ fontFamily: 'Arial, sans-serif' }}>01</div>
                     <div 
                       className="text-9xl font-medium text-white mb-8 ml-12 -mt-12 hover:text-gray-300 transition-colors duration-300 inline-block"
-                      onMouseMove={handleMouseMove}
-                      onMouseEnter={handleMouseEnter}
-                      onMouseLeave={handleMouseLeave}
+                      onMouseMove={handleMenuMouseMove}
+                      onMouseEnter={handleMenuMouseEnter}
+                      onMouseLeave={handleMenuMouseLeave}
                       style={{ width: 'fit-content' }}
                     >Home</div>
                     <div className="h-1 bg-gray-300 mt-4 line-stretch" id="line1"></div>
@@ -166,9 +181,9 @@ export default function Home() {
                     <div className="text-3xl text-gray-300 font-bold mb-2" style={{ fontFamily: 'Arial, sans-serif' }}>02</div>
                     <div 
                       className="text-9xl font-medium text-white mb-8 ml-12 -mt-12 hover:text-gray-300 transition-colors duration-300 inline-block"
-                      onMouseMove={handleMouseMove}
-                      onMouseEnter={handleMouseEnter}
-                      onMouseLeave={handleMouseLeave}
+                      onMouseMove={handleMenuMouseMove}
+                      onMouseEnter={handleMenuMouseEnter}
+                      onMouseLeave={handleMenuMouseLeave}
                       style={{ width: 'fit-content' }}
                     >About Me</div>
                     <div className="h-1 bg-gray-300 mt-4 line-stretch" id="line2"></div>
@@ -196,6 +211,49 @@ export default function Home() {
             />
           )}
 
+          {/* Menu Cursor Circle with Arrow */}
+          {showMenuCursor && (
+            <div 
+              className="fixed pointer-events-none z-50"
+              style={{
+                left: menuCursorPosition.x,
+                top: menuCursorPosition.y,
+                transform: 'translate(8px, 8px)',
+                transition: 'none',
+              }}
+            >
+              <div style={{ mixBlendMode: 'difference' }}>
+                <svg 
+                  width="100" 
+                  height="100" 
+                  viewBox="0 0 100 100" 
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <defs>
+                    <mask id="menuArrowMask">
+                      <circle cx="50" cy="50" r="50" fill="white"/>
+                      <path 
+                        d="M28 72 L72 28 M72 28 L28 28 M72 28 L72 72" 
+                        stroke="black" 
+                        strokeWidth="9" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round"
+                        fill="none"
+                      />
+                    </mask>
+                  </defs>
+                  <circle 
+                    cx="50" 
+                    cy="50" 
+                    r="50" 
+                    fill="white" 
+                    mask="url(#menuArrowMask)"
+                  />
+                </svg>
+              </div>
+            </div>
+          )}
+
           {/* Image Cursor Circle with Arrow */}
           {showImageCursor && (
             <div 
@@ -207,33 +265,35 @@ export default function Home() {
                 transition: 'none',
               }}
             >
-              <svg 
-                width="100" 
-                height="100" 
-                viewBox="0 0 100 100" 
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <defs>
-                  <mask id="arrowMask">
-                    <circle cx="50" cy="50" r="50" fill="white"/>
-                    <path 
-                      d="M28 72 L72 28 M72 28 L28 28 M72 28 L72 72" 
-                      stroke="black" 
-                      strokeWidth="9" 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round"
-                      fill="none"
-                    />
-                  </mask>
-                </defs>
-                <circle 
-                  cx="50" 
-                  cy="50" 
-                  r="50" 
-                  fill="white" 
-                  mask="url(#arrowMask)"
-                />
-              </svg>
+              <div style={{ mixBlendMode: 'difference' }}>
+                <svg 
+                  width="100" 
+                  height="100" 
+                  viewBox="0 0 100 100" 
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <defs>
+                    <mask id="arrowMask">
+                      <circle cx="50" cy="50" r="50" fill="white"/>
+                      <path 
+                        d="M28 72 L72 28 M72 28 L28 28 M72 28 L72 72" 
+                        stroke="black" 
+                        strokeWidth="9" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round"
+                        fill="none"
+                      />
+                    </mask>
+                  </defs>
+                  <circle 
+                    cx="50" 
+                    cy="50" 
+                    r="50" 
+                    fill="white" 
+                    mask="url(#arrowMask)"
+                  />
+                </svg>
+              </div>
               <div 
                 className="text-white text-xs font-semibold tracking-wider mt-2"
                 style={{ 
@@ -285,6 +345,76 @@ export default function Home() {
               </div>
             </a>
             <a 
+              href="https://www.nme.com/news/music/watch-adrianne-lenker-perform-tracks-from-her-latest-album-for-nprs-tiny-desk-concert-2820035" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              style={{ 
+                position: 'absolute', 
+                top: '1500px', 
+                left: '2.75%',
+                textDecoration: 'none', 
+                color: 'inherit', 
+                cursor: 'none' 
+              }}
+              onMouseMove={handleImageMouseMove}
+              onMouseEnter={handleImageMouseEnter}
+              onMouseLeave={handleImageMouseLeave}
+            >
+              <img 
+                src="/images/adriannelenker01.jpg" 
+                alt="adriannelenker01" 
+                className="w-auto h-auto object-cover"
+                style={{ 
+                  width: '900px'
+                }}
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
+              <div style={{ marginTop: '20px', textAlign: 'left', fontSize: '14px', lineHeight: '1.4', color: '#cccccc' }}>
+                <div>
+                  <strong>Watch Adrianne Lenker perform tracks from her latest album for NPR's Tiny Desk Concert</strong>
+                </div>
+              </div>
+            </a>
+            <a 
+              href="https://www.washingtonpost.com/climate-environment/2022/08/23/extinct-tree-species-sequoias/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              style={{ 
+                position: 'absolute', 
+                top: '1500px', 
+                left: 'calc(2.75% + 900px + 2.5vw)',
+                right: '2.75%',
+                textDecoration: 'none', 
+                color: 'inherit', 
+                cursor: 'none' 
+              }}
+              onMouseMove={handleImageMouseMove}
+              onMouseEnter={handleImageMouseEnter}
+              onMouseLeave={handleImageMouseLeave}
+            >
+              <img 
+                src="/images/redwoods.jpg" 
+                alt="redwoods" 
+                className="w-auto h-auto object-contain"
+                style={{ 
+                  width: '100%',
+                  maxWidth: '100%',
+                  height: 'auto',
+                  display: 'block'
+                }}
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
+              <div style={{ marginTop: '20px', textAlign: 'left', fontSize: '14px', lineHeight: '1.4', color: '#cccccc' }}>
+                <div>
+                  <strong>As many as one in six U.S. tree species is threatened with extinction</strong>
+                </div>
+              </div>
+            </a>
+            <a 
               href="https://www.thelivingphilosophy.com/p/soren-kierkegaard" 
               target="_blank" 
               rel="noopener noreferrer"
@@ -316,7 +446,7 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 px-6 bg-black" style={{ paddingTop: '600px' }}>
+      <section id="about" className="py-20 px-6 bg-black" style={{ paddingTop: '2500px' }}>
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl font-bold text-white mb-12 text-center" style={{ fontFamily: 'Minecraft, monospace' }}>About Me</h2>
           <div className="grid md:grid-cols-2 gap-12 items-center">
