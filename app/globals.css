@@ -175,6 +175,17 @@ body {
   opacity: 0;
 }
 
+.image-fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+}
+
+.image-fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .scroll-text-wrapper {
   transition: opacity 1s ease-out 1s, transform 1s ease-out 1s;
 }

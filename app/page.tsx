@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export default function Home() {
   const [currentTime, setCurrentTime] = useState('');
@@ -13,6 +13,13 @@ export default function Home() {
   const [menuCursorPosition, setMenuCursorPosition] = useState({ x: 0, y: 0 });
   const [showMenuCursor, setShowMenuCursor] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [hoverFirstPart, setHoverFirstPart] = useState(false);
+  const [hoverSecondPart, setHoverSecondPart] = useState(false);
+  const [introScrollProgress, setIntroScrollProgress] = useState(0);
+  const [isIntroLocked, setIsIntroLocked] = useState(false);
+  const introSectionRef = useRef<HTMLDivElement>(null);
+  const introLockStartY = useRef<number>(0);
+  const introScrollDelta = useRef<number>(0);
 
   useEffect(() => {
     // Trigger fade-in animation on mount
@@ -35,6 +42,83 @@ export default function Home() {
 
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!introSectionRef.current) return;
+      
+      const rect = introSectionRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      const sectionTop = rect.top;
+      const sectionHeight = rect.height;
+      
+      // Check if section is in viewport (top of section is above viewport bottom)
+      const isInView = sectionTop < windowHeight && sectionTop > -sectionHeight;
+      
+      if (isInView && !isIntroLocked && sectionTop < windowHeight * 0.5) {
+        // Lock scroll when section enters and reaches trigger point
+        setIsIntroLocked(true);
+        introLockStartY.current = window.scrollY;
+        introScrollDelta.current = 0;
+        document.body.style.overflow = 'hidden';
+      }
+      
+      if (isIntroLocked) {
+        // Prevent default scroll and track scroll attempts
+        const currentScrollY = window.scrollY;
+        const scrollAttempt = currentScrollY - introLockStartY.current;
+        
+        // Convert scroll attempts to progress (0 to 1)
+        // Use a threshold like 800px of scroll attempts = full progress
+        const scrollThreshold = 800;
+        const progress = Math.max(0, Math.min(1, Math.abs(scrollAttempt) / scrollThreshold));
+        setIntroScrollProgress(progress);
+        
+        // Lock scroll position
+        window.scrollTo(0, introLockStartY.current);
+        
+        // Unlock when progress reaches 1
+        if (progress >= 1) {
+          setIsIntroLocked(false);
+          document.body.style.overflow = 'auto';
+        }
+      } else if (!isInView) {
+        // Reset when section is out of view
+        setIntroScrollProgress(0);
+        setIsIntroLocked(false);
+        document.body.style.overflow = 'auto';
+      }
+    };
+
+    const handleWheel = (e: WheelEvent) => {
+      if (isIntroLocked && introSectionRef.current) {
+        e.preventDefault();
+        const delta = e.deltaY;
+        introScrollDelta.current += delta;
+        
+        // Convert wheel delta to progress
+        const scrollThreshold = 800;
+        const progress = Math.max(0, Math.min(1, Math.abs(introScrollDelta.current) / scrollThreshold));
+        setIntroScrollProgress(progress);
+        
+        // Unlock when progress reaches 1
+        if (progress >= 1) {
+          setIsIntroLocked(false);
+          document.body.style.overflow = 'auto';
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    handleScroll();
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('wheel', handleWheel);
+      document.body.style.overflow = 'auto';
+    };
+  }, [isIntroLocked]);
 
   useEffect(() => {
     if (isMenuOpen) {
@@ -328,7 +412,8 @@ export default function Home() {
               href="https://www.youtube.com/watch?v=zTOccll2XGM" 
               target="_blank" 
               rel="noopener noreferrer"
-              style={{ position: 'absolute', top: '300px', left: '2.75%', width: '42%', textDecoration: 'none', color: 'inherit', cursor: 'none' }}
+              className={`image-fade-in ${isLoaded ? 'visible' : ''}`}
+              style={{ position: 'absolute', top: '300px', left: '2.75%', width: '42%', textDecoration: 'none', color: 'inherit', cursor: 'none', transitionDelay: '1.2s' }}
               onMouseMove={handleImageMouseMove}
               onMouseEnter={handleImageMouseEnter}
               onMouseLeave={handleImageMouseLeave}
@@ -352,13 +437,15 @@ export default function Home() {
               href="https://www.nme.com/news/music/watch-adrianne-lenker-perform-tracks-from-her-latest-album-for-nprs-tiny-desk-concert-2820035" 
               target="_blank" 
               rel="noopener noreferrer"
+              className={`image-fade-in ${isLoaded ? 'visible' : ''}`}
               style={{ 
                 position: 'absolute', 
                 top: '1500px', 
                 left: '2.75%',
                 textDecoration: 'none', 
                 color: 'inherit', 
-                cursor: 'none' 
+                cursor: 'none',
+                transitionDelay: '1.4s'
               }}
               onMouseMove={handleImageMouseMove}
               onMouseEnter={handleImageMouseEnter}
@@ -385,6 +472,7 @@ export default function Home() {
               href="https://www.washingtonpost.com/climate-environment/2022/08/23/extinct-tree-species-sequoias/" 
               target="_blank" 
               rel="noopener noreferrer"
+              className={`image-fade-in ${isLoaded ? 'visible' : ''}`}
               style={{ 
                 position: 'absolute', 
                 top: '1500px', 
@@ -392,7 +480,8 @@ export default function Home() {
                 right: '2.75%',
                 textDecoration: 'none', 
                 color: 'inherit', 
-                cursor: 'none' 
+                cursor: 'none',
+                transitionDelay: '1.6s'
               }}
               onMouseMove={handleImageMouseMove}
               onMouseEnter={handleImageMouseEnter}
@@ -422,7 +511,8 @@ export default function Home() {
               href="https://www.thelivingphilosophy.com/p/soren-kierkegaard" 
               target="_blank" 
               rel="noopener noreferrer"
-              style={{ position: 'absolute', top: '300px', left: '47.25%', width: '50%', textDecoration: 'none', color: 'inherit', cursor: 'none' }}
+              className={`image-fade-in ${isLoaded ? 'visible' : ''}`}
+              style={{ position: 'absolute', top: '300px', left: '47.25%', width: '50%', textDecoration: 'none', color: 'inherit', cursor: 'none', transitionDelay: '1.8s' }}
               onMouseMove={handleImageMouseMove}
               onMouseEnter={handleImageMouseEnter}
               onMouseLeave={handleImageMouseLeave}
@@ -445,6 +535,57 @@ export default function Home() {
                 </div>
               </div>
             </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Introduction Section */}
+      <section ref={introSectionRef} className="py-20 px-6 bg-black" style={{ paddingTop: '1300px' }}>
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-8" style={{ marginTop: '-60px', marginBottom: '100px', marginLeft: '-24px', marginRight: '-24px' }}>
+            <div className="h-px bg-gray-300 w-full"></div>
+          </div>
+          <div 
+            className="flex items-start gap-12" 
+            style={{ 
+              marginTop: '80px',
+              opacity: 1,
+              transform: introScrollProgress > 0 ? 'translateY(0)' : 'translateY(30px)',
+              transition: 'transform 0.3s ease'
+            }}
+          >
+            <div className="text-left" style={{ minWidth: '250px', marginTop: '20px', marginLeft: '-24px' }}>
+              <h2 className="text-xs text-gray-400 font-normal uppercase">
+                INTRODUCTION
+              </h2>
+            </div>
+            <div className="flex-1" style={{ paddingLeft: '0', marginLeft: '-50px' }}>
+              <p className="text-5xl md:text-6xl font-normal text-gray-500 leading-tight" style={{ fontFamily: 'Arial, sans-serif' }}>
+                <span 
+                  onMouseEnter={() => setHoverFirstPart(true)}
+                  onMouseLeave={() => setHoverFirstPart(false)}
+                  style={{ 
+                    color: hoverFirstPart ? '#ffffff' : (introScrollProgress > 0 && introScrollProgress <= 0.5 ? '#ffffff' : '#6b7280'),
+                    transition: 'color 0.3s ease',
+                    cursor: 'default'
+                  }}
+                >
+                  What if experiences were made to spark curiosity instead of just looking nice?
+                </span>
+                {' '}
+                <span 
+                  onMouseEnter={() => setHoverSecondPart(true)}
+                  onMouseLeave={() => setHoverSecondPart(false)}
+                  style={{ 
+                    color: hoverSecondPart ? '#ffffff' : (introScrollProgress > 0.5 ? '#ffffff' : '#6b7280'),
+                    transition: 'color 0.3s ease',
+                    cursor: 'default'
+                  }}
+                >
+                  This is a space full of thoughtful details, unexpected touches, and designs that make you actually stop and notice.
+                </span>
+              </p>
+            </div>
           </div>
         </div>
       </section>
