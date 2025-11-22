@@ -12,8 +12,12 @@ export default function Home() {
   const [showImageCursor, setShowImageCursor] = useState(false);
   const [menuCursorPosition, setMenuCursorPosition] = useState({ x: 0, y: 0 });
   const [showMenuCursor, setShowMenuCursor] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
+    // Trigger fade-in animation on mount
+    setIsLoaded(true);
+    
     const updateTime = () => {
       const now = new Date();
       const islamabadTime = new Date(now.toLocaleString("en-US", {timeZone: "Asia/Karachi"}));
@@ -113,13 +117,13 @@ export default function Home() {
               <div>NAEEM</div>
             </a>
           </div>
-          <div className="text-xs text-gray-300 font-normal whitespace-nowrap">
+          <div className={`text-xs text-gray-300 font-normal whitespace-nowrap transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`} style={{ transitionDelay: '0.4s' }}>
             33.5645°N, 73.3535°E
           </div>
-          <div className="text-xs text-gray-300 font-normal whitespace-nowrap">
+          <div className={`text-xs text-gray-300 font-normal whitespace-nowrap transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`} style={{ transitionDelay: '0.6s' }}>
             {currentTime}
           </div>
-          <div className="relative z-50">
+          <div className={`relative z-50 transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`} style={{ transitionDelay: '0.8s' }}>
             <div 
               className="flex flex-col gap-1 cursor-pointer transition-all duration-300 hover:gap-2"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -310,7 +314,7 @@ export default function Home() {
 
       {/* Scrolling Text */}
       <div className="w-screen -mx-6 overflow-hidden h-48" style={{ paddingTop: '200px' }}>
-        <h1 className="text-9xl md:text-[12rem] font-semibold text-white tracking-wide whitespace-nowrap scroll-text" style={{ fontFamily: 'Arial, sans-serif', textTransform: 'lowercase' }}>
+        <h1 className={`text-9xl md:text-[12rem] font-semibold text-white tracking-wide whitespace-nowrap scroll-text-fade-in`} style={{ fontFamily: 'Arial, sans-serif', textTransform: 'lowercase' }}>
           hi i'm babar • hi i'm babar • hi i'm babar • hi i'm babar • hi i'm babar • hi i'm babar • hi i'm babar • hi i'm babar • hi i'm babar • hi i'm babar • hi i'm babar • hi i'm babar • hi i'm babar • hi i'm babar • hi i'm babar • hi i'm babar • hi i'm babar • hi i'm babar • hi i'm babar • hi i'm babar
         </h1>
       </div>

@@ -140,6 +140,21 @@ body {
   }
 }
 
+@keyframes scrollRightToLeftWithFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) translateX(0%);
+  }
+  0.2% {
+    opacity: 1;
+    transform: translateY(0) translateX(0%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) translateX(-50%);
+  }
+}
+
 .scroll-text {
   animation: scrollRightToLeft 50s linear infinite;
   display: inline-block;
@@ -147,5 +162,20 @@ body {
   position: absolute;
   left: 0;
   top: 120px;
+}
+
+.scroll-text-fade-in {
+  animation: scrollRightToLeftWithFadeIn 50s linear infinite;
+  animation-delay: 1s;
+  display: inline-block;
+  width: 200%;
+  position: absolute;
+  left: 0;
+  top: 120px;
+  opacity: 0;
+}
+
+.scroll-text-wrapper {
+  transition: opacity 1s ease-out 1s, transform 1s ease-out 1s;
 }
 
